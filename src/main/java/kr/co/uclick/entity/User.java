@@ -1,23 +1,41 @@
 package kr.co.uclick.entity;
 
+import java.util.Collection;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.springframework.cache.annotation.Cacheable;
 
-
-//jpa Entity : 데이터베이스에 저장하기 위해서 유저가 정의한 클래스 (db에서 테이블 정의 같은 개념) 컬럼에 대한 정보를 가짐.
-@Entity
+@Entity   //JPA의 엔티티는 테이블을 객체로 표현한 자바 클래스이다
+@Cacheable
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User {
-
-	@Id
+	
+	@Id   //DB PK와 매핑할 필드
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private String name;
-	private int age;
 	
+	@Column(name="name", nullable=true, length=20)	//이름 컬럼 20byte제한 (*체크)
+	private String name;
+	
+	
+	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
+	@JoinColumn(name="userId")
+	private Collection<Phone> phone;
+
+	
+	public User() {};
 	
 	public Long getId() {
 		return id;
@@ -34,5 +52,18 @@ public class User {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public Collection<Phone> getPhone() {
+		return phone;
+	}
+ 
+	public void setPhone(List<Phone> phone) {
+		this.phone = phone;
+	}
+	
+	
+	
+	
+	
 
 }

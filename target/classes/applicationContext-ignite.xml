@@ -27,6 +27,15 @@
 			<list>
 
 				<!-- Configuration for update timestamps cache. -->
+
+				<!-- Bean 추가 -->
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.Phone" />
+				</bean>
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.User" />
+				</bean>
+
 				<bean parent="atomic-cache">
 					<property name="name"
 						value="org.hibernate.cache.spi.UpdateTimestampsCache" />
