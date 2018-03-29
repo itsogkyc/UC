@@ -6,11 +6,9 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.Cache;
@@ -29,22 +27,17 @@ public class User {
 	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 20byte제한 (*체크)
 	private String name;
 
-
-/*    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Phone> phone;*/
-	
-	
-	//1번쨰 케이스
-	//@JoinColumn은 외래키매핑용이며 name은 자기자신 테이블(table)의 컬럼명
-	//@OneToMany 사용자는 여러개의 전화기를 갖고 있기 때문에 List, Collection 형식으로 여러 값을 받게 된다
-	@OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)		//cascade : 현 Entity 변경에 대해 관계를 맺는 Entity도 변경 전략을 결정합니다.
-	@JoinColumn(name="ownerId", referencedColumnName="id")		// Phone엔터티에서 참조할 변수이름
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+	// 2번째 케이스 양방향 OnetoMnay
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // cascade : 현 Entity 변경에 대해 관계를 맺는 Entity도 변경 전략을 결정합니다.
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)  //L2 Cache 적용
 	private List<Phone> phone;
-
 
 	public User() {
 	};
+
+	public User(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -69,18 +62,14 @@ public class User {
 	public void setPhone(List<Phone> phone) {
 		this.phone = phone;
 	}
-	
-	public boolean addPhone(Phone p){
-		if( phone == null ){
+
+	// TODO : 폰 번호를 추가함과 동시에 p Entity에 유저를 Setting
+	public void addPhone(Phone p) {
+		if (phone == null) {
 			phone = new ArrayList<Phone>();
 		}
-		return phone.add(p);
+		phone.add(p);
+		p.setUser(this);
 	}
-
-	/*
-	 * public Collection<Phone> getPhone() { return phone; }
-	 * 
-	 * public void setPhone(List<Phone> phone) { this.phone = phone; }
-	 */
 
 }

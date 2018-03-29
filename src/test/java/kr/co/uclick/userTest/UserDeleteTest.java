@@ -1,4 +1,4 @@
-package kr.co.uclick.service;
+package kr.co.uclick.userTest;
 
 import java.util.List;
 
@@ -13,10 +13,12 @@ import org.springframework.transaction.annotation.Transactional;
 import kr.co.uclick.configuration.SpringConfiguration;
 import kr.co.uclick.entity.Phone;
 import kr.co.uclick.entity.User;
+import kr.co.uclick.service.PhoneService;
+import kr.co.uclick.service.UserService;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(classes = SpringConfiguration.class)
-public class UserAddTest {
+public class UserDeleteTest {
 
 	@Autowired
 	private UserService userService;
@@ -49,18 +51,21 @@ public class UserAddTest {
 	@Test
 	@Transactional
 	public void addTest() {
-
+		
+		//delete
+		userService.deleteUser((long)1);;
 		List<User> user = userService.findAll();
-		List<Phone> phone = phoneService.findAll();
-
+		
 		for (User u : user) {
-			System.out.println("**사용자 입력값 확인** =>" + " [ID]: " + u.getId() + " [NAME]: " + u.getName());
+			System.out.println("**사용자 삭제 확인** =>" + " [ID]: " + u.getId() + " [NAME]: " + u.getName());
+		}
+
+		List<Phone> phone = phoneService.findAll();
+		for (Phone p : phone) {
+			System.out.println("**전화기 삭제 확인** =>" + " [OWNER ID]: " + p.getUser().getName() + " [NAME]: " + p.getPhoneNumber());
 		}
 		
-		for (Phone p : phone) {
-			System.out.println("**전화기 입력값 확인** =>" + " [OWNER ID]: " + p.getOwnerId() + " [PhoneNumber]: " + p.getPhoneNumber());
-		}
-
+		
 	}
 
 }
