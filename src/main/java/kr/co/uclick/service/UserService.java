@@ -18,7 +18,15 @@ public class UserService {
 	
 	// 입력
 	public void save(User user) {
-		userRepository.save(user);
+		
+		// 이름 20byte로 제한
+		int nameByte = user.getName().getBytes().length;
+		if(nameByte <= 20) {
+			userRepository.save(user);
+		}else {
+			System.out.println("**Error Log** => 사용자 이름 20byte제한 초과  [입력byte] : " + nameByte);
+		}
+		
 	}
 	// 읽기
 	public List<User> findAll() {
@@ -32,28 +40,9 @@ public class UserService {
 	public void deleteUser(Long userId) {
 		userRepository.deleteById(userId);
 	}
-	
-	// 검색으로 2명이상 조회
-/*	public List<User> findAllByInput(String input) {
-		return userRepository.findAllByInput(input);
-	}*/
-	
+	// 특정 사용자 조회
 	public List<User> findAllByNameContaining(String name){
 		return userRepository.findByNameContaining(name);
 	}
-	
-	
-/*	@SuppressWarnings("unchecked")
-	public List<User> findAllByInput(String input) {
-		System.out.println("단계1");
-		entityManager = emf.createEntityManager();
-		System.out.println("단계2");
-		List<User> value = entityManager.createQuery("select u from User u where u.name like %"+input+"%")
-		  .setHint("org.hibernate.cacheable", true)
-		  .getResultList();
-		System.out.println("단계3");
-		return value;
-	}*/
-	
 	
 }

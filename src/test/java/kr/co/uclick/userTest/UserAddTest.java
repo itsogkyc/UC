@@ -29,13 +29,14 @@ public class UserAddTest {
 	public void addUser() {
 
 		User user1 = new User();
-		user1.setName("kim");
+		user1.setName("안ㅇhi");
 		user1.addPhone(new Phone("010-0000-0001"));
 		user1.addPhone(new Phone("010-0000-0002"));
 		userService.save(user1);
 
+		//사용자 이름 20byte제한
 		User user2 = new User();
-		user2.setName("lee");
+		user2.setName("나의 이름은 20byte가 넘습니다");
 		user2.addPhone(new Phone("010-0000-0003"));
 		user2.addPhone(new Phone("010-0000-0004"));
 		userService.save(user2);

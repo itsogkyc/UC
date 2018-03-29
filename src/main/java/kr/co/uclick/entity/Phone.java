@@ -23,19 +23,19 @@ public class Phone {
 
 	private String phoneNumber;
 
-	//User Entity를 참조하여 ownerId 컬럼을 만듬
+	// User Entity를 참조하여 ownerId 컬럼을 만듬
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
 	private User user;
 
 	public Phone() {
 	}
-	
-	public Phone(User user, String phoneNumber){
+
+	public Phone(User user, String phoneNumber) {
 		this.user = user;
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	public Phone(String phone) {
 		phoneNumber = phone;
 	}
@@ -55,7 +55,7 @@ public class Phone {
 	public void setPhoneNumber(String phoneNumber) {
 		this.phoneNumber = phoneNumber;
 	}
-	
+
 	public User getUser() {
 		return user;
 	}
@@ -63,6 +63,5 @@ public class Phone {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
 
 }

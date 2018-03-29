@@ -2,6 +2,7 @@ package kr.co.uclick.userTest;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,11 +51,13 @@ public class UserFindTest {
 	public void addTest() {
 
 		List<User> user = userService.findAllByNameContaining("kim");
-		
-		//성이 kim인 사용자 조회
+
+		// 성이 kim인 사용자 조회
 		for (User u : user) {
 			System.out.println("**사용자 조회값 확인** =>" + " [ID]: " + u.getId() + " [NAME]: " + u.getName());
 		}
+
+		Assert.assertEquals("kim young chul", user.get(0).getName());
 
 	}
 
