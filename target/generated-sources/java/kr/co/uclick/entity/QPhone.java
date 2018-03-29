@@ -19,11 +19,11 @@ public class QPhone extends EntityPathBase<Phone> {
 
     public static final QPhone phone = new QPhone("phone");
 
+    public final NumberPath<Long> ownerId = createNumber("ownerId", Long.class);
+
     public final StringPath phoneNumber = createString("phoneNumber");
 
     public final NumberPath<Long> seq = createNumber("seq", Long.class);
-
-    public final NumberPath<Long> userId = createNumber("userId", Long.class);
 
     public QPhone(String variable) {
         super(Phone.class, forVariable(variable));

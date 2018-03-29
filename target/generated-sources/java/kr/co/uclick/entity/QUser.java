@@ -24,7 +24,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath name = createString("name");
 
-    public final CollectionPath<Phone, QPhone> phone = this.<Phone, QPhone>createCollection("phone", Phone.class, QPhone.class, PathInits.DIRECT2);
+    public final ListPath<Phone, QPhone> phone = this.<Phone, QPhone>createList("phone", Phone.class, QPhone.class, PathInits.DIRECT2);
 
     public QUser(String variable) {
         super(User.class, forVariable(variable));

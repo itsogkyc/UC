@@ -16,25 +16,30 @@ public class UserService {
 	@Autowired
 	private UserRepository userRepository;
 	
-	//C
+	// 입력
 	public void save(User user) {
 		userRepository.save(user);
 	}
-	//R
+	// 읽기
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
-	//U
-	public void updateUser(String phone, Long userId) {
-		userRepository.updateUserInfoById(phone, userId);
+	// 수정
+	public void updateUser(String name, Long id) {
+		userRepository.updateUserInfoById(name, id);
 	}
-	//D
+	// 삭제
 	public void deleteUser(Long userId) {
-		userRepository.deleteUserById(userId);
+		userRepository.deleteById(userId);
 	}
 	
-	public List<User> findAllByInput(String input) {
+	// 검색으로 2명이상 조회
+/*	public List<User> findAllByInput(String input) {
 		return userRepository.findAllByInput(input);
+	}*/
+	
+	public List<User> findAllByNameContaining(String name){
+		return userRepository.findByNameContaining(name);
 	}
 	
 	

@@ -18,20 +18,32 @@ public interface UserRepository extends JpaRepository<User, Long> {		//JpaReposi
 																		// <Entity, Entity의 Id 데이터 타입>
 	@Modifying
 	@Transactional
-	@Query("update User u set u.phone = ?1 where u.id = ?2")
-	public void updateUserInfoById(String phone, Long userId);
+	@Query("update User u set u.name = ?1 where u.id = ?2")
+	public void updateUserInfoById(String name, Long id);
 
-	@Modifying
-    @Transactional
-    @Query("DELETE FROM User u WHERE u.id=:id")
-    public void deleteUserById(@Param("id") Long userId);
 
-	@Modifying
+	//---------------------1 - 1. Query 어노테이션 사용
+/*	@Modifying
     @Transactional
 	@Query("select u from User u where u.name like %:input%")
-    public List<User> findAllByInput(@Param("input") String input);
+    public List<User> findAllByInput(@Param("input") String input);*/
+	
+	//---------------------1 - 2. JPA 문법
+	@Modifying
+    @Transactional
+    public List<User> findByNameContaining(String name);
+	
 	
 	
 	
 }
 
+
+
+
+
+/*	@Modifying
+@Transactional
+@Query("DELETE FROM User u WHERE u.id=:id")
+public void deleteUserById(@Param("id") Long userId);
+*/

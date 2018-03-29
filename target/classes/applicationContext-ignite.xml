@@ -32,8 +32,13 @@
 				<bean parent="transactional-cache">
 					<property name="name" value="kr.co.uclick.entity.Phone" />
 				</bean>
+				
 				<bean parent="transactional-cache">
 					<property name="name" value="kr.co.uclick.entity.User" />
+				</bean>
+
+				<bean parent="transactional-cache">
+					<property name="name" value="kr.co.uclick.entity.User.phone" />
 				</bean>
 
 				<bean parent="atomic-cache">

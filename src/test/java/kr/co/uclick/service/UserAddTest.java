@@ -2,7 +2,6 @@ package kr.co.uclick.service;
 
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,26 +20,29 @@ public class UserAddTest {
 
 	@Autowired
 	private UserService userService;
+	@Autowired
+	private PhoneService phoneService;
 
 	@BeforeTransaction
 	public void addUser() {
-		// *c : creat
-		User user = new User();
-		user.setName("kim");
-		user.setPhone(new Phone("010-1111-2222"));
-		userService.save(user);
-		user = new User();
-		user.setName("Lee1");
-		user.setPhone("010-1111-2222");
-		userService.save(user);
-		user = new User();
-		user.setName("Lee2");
-		user.setPhone("010-1111-2222");
-		userService.save(user);
-		user = new User();
-		user.setName("Lee3");
-		user.setPhone("010-1111-2222");
-		userService.save(user);
+
+		User user1 = new User();
+		user1.setName("kim");
+		user1.addPhone(new Phone("010-0000-0001"));
+		user1.addPhone(new Phone("010-0000-0002"));
+		userService.save(user1);
+
+		User user2 = new User();
+		user2.setName("lee");
+		user2.addPhone(new Phone("010-0000-0003"));
+		user2.addPhone(new Phone("010-0000-0004"));
+		userService.save(user2);
+		
+		User user3 = new User();
+		user3.setName("park");
+		user3.addPhone(new Phone("010-0000-0005"));
+		user3.addPhone(new Phone("010-0000-0006"));
+		userService.save(user3);
 		
 	}
 
@@ -48,25 +50,16 @@ public class UserAddTest {
 	@Transactional
 	public void addTest() {
 
-		// *u : update
-		userService.updateUser("010-2222-3333", (long)1);
-
-		// *d : delete
-		userService.deleteUser((long)1);
-
-		// *r : read
 		List<User> user = userService.findAll();
-		for (User p : user) {
-			System.out.println("~~~~~~~~UserFindAll 출력값~~~~~~~~~==>" + p.toString() + p.getName());
+		List<Phone> phone = phoneService.findAll();
+
+		for (User u : user) {
+			System.out.println("**사용자 입력값 확인** =>" + " [ID]: " + u.getId() + " [NAME]: " + u.getName());
 		}
 		
-		List<User> find = userService.findAllByInput("Lee");
-		
-		for (User p : find) {
-			System.out.println("%%%%%%find 값 %%%%%%" + p.getName());
+		for (Phone p : phone) {
+			System.out.println("**전화기 입력값 확인** =>" + " [OWNER ID]: " + p.getOwnerId() + " [PhoneNumber]: " + p.getPhoneNumber());
 		}
-		
-		Assert.assertNotNull(user);
 
 	}
 
