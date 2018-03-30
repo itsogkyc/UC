@@ -28,4 +28,4 @@ public interface UserRepository extends JpaRepository<User, Long> { // JpaReposi
 	} )
 	public List<User> findByNameContaining(String name);
 	
-}
+} 

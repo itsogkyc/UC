@@ -2,6 +2,7 @@ package kr.co.uclick.phoneTest;
 
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +61,9 @@ public class PhoneAddTest {
 			System.out.println(
 					"**전화기 입력값 확인** =>" + " [OWNER ID]: " + p.getUser().getId() + " [PHONE]: " + p.getPhoneNumber());
 		}
-
+		
+		Assert.assertNull(phone);
+		
 	}
 
 }

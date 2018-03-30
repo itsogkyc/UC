@@ -65,7 +65,6 @@ public class UserDeleteTest {
 			System.out.println("**전화기 삭제 확인** =>" + " [OWNER ID]: " + p.getUser().getName() + " [NAME]: " + p.getPhoneNumber());
 		}
 		
-		
 	}
 
 }
