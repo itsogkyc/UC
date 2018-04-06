@@ -29,7 +29,7 @@ public class UserAddTest {
 	public void addUser() {
 
 		User user1 = new User();
-		user1.setName("안ㅇhi");
+		user1.setName("kim");
 		user1.addPhone(new Phone("010-0000-0001"));
 		user1.addPhone(new Phone("010-0000-0002"));
 		userService.save(user1);

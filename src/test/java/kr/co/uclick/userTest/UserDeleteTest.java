@@ -52,7 +52,6 @@ public class UserDeleteTest {
 	@Transactional
 	public void addTest() {
 		
-		//delete
 		userService.deleteUser((long)1);;
 		List<User> user = userService.findAll();
 		

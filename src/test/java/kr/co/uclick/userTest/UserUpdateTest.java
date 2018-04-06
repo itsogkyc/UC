@@ -50,9 +50,9 @@ public class UserUpdateTest {
 	public void addTest() {
 		
 		//update
-		userService.updateUser("updateedKim", (long)1);
-		userService.updateUser("updatedLee", (long)4);
-		userService.updateUser("updatedPark", (long)7);
+		userService.updateUser("나의 이름은 20byte가 넘습니다.", (long)1);   //수정할 이름이 20byte넘을시 수정취소
+		userService.updateUser("updatedLee", (long)2);
+		userService.updateUser("updatedPark", (long)3);
 		List<User> user = userService.findAll();
 		
 		for (User c : user) {

@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import kr.co.uclick.entity.User;
 
-public interface UserRepository extends JpaRepository<User, Long> { // JpaRepository가 CrudRepository보다 상위 클래스임
-																	// <Entity, Entity의 Id 데이터 타입>
+public interface UserRepository extends JpaRepository<User, Long> { 
+																	
 	@Modifying
 	@Transactional
 	@Query("update User u set u.name = ?1 where u.id = ?2")

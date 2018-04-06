@@ -1,5 +1,6 @@
 package kr.co.uclick.entity;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,28 +16,28 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.cache.annotation.Cacheable;
 
-@Entity // JPA의 엔티티는 테이블을 객체로 표현한 자바 클래스이다
+@Entity
 @Cacheable
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User {
 
-	@Id // DB PK와 매핑할 필드
+	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 
-	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 20byte제한 (*체크)
+	@Column(name = "name", nullable = true, length = 20) // 이름 컬럼 길이 20으로 제한
 	private String name;
 
-	// 2번째 케이스 양방향 OnetoMnay
+	// OnetoMnay 다대일 관계를 정의
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL) // cascade : 현 Entity 변경에 대해 관계를 맺는 Entity도 변경 전략을 결정합니다.
-	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)  //L2 Cache 적용
+	@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE) // L2 Cache 적용
 	private List<Phone> phone;
 
 	public User() {
 	};
 
 	public User(String name) {
-		this.name = name;
+		setName(name);
 	}
 
 	public Long getId() {

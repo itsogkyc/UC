@@ -62,8 +62,6 @@ public class PhoneAddTest {
 					"**전화기 입력값 확인** =>" + " [OWNER ID]: " + p.getUser().getId() + " [PHONE]: " + p.getPhoneNumber());
 		}
 		
-		Assert.assertNull(phone);
-		
 	}
 
 }

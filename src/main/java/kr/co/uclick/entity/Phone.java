@@ -1,5 +1,6 @@
 package kr.co.uclick.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -17,13 +18,14 @@ import org.springframework.cache.annotation.Cacheable;
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class Phone {
 
-	@Id // 식별자 일반적으로 PK를 가지는 변수에 선언
-	@GeneratedValue(strategy = GenerationType.IDENTITY) // 해당 ID값을 어떻게 자동으로 생성할지 선택 (자동증가)
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long seq;
-
+	
+	@Column(unique=true)
 	private String phoneNumber;
 
-	// User Entity를 참조하여 ownerId 컬럼을 만듬
+	// User Entity를 참조하여  Phone 테이블에 ownerId 컬럼을 만듬
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "ownerId")
 	private User user;

@@ -18,31 +18,44 @@ public class UserService {
 	
 	// 입력
 	public void save(User user) {
-		
-		// 이름 20byte로 제한
-		int nameByte = user.getName().getBytes().length;
-		if(nameByte <= 20) {
-			userRepository.save(user);
-		}else {
-			System.out.println("**Error Log** => 사용자 이름 20byte제한 초과  [입력byte] : " + nameByte);
+		boolean check = checkNameByte(user.getName());
+		if(check==false) {
+			return;
 		}
-		
+		userRepository.save(user);
 	}
+	
 	// 읽기
 	public List<User> findAll() {
 		return userRepository.findAll();
 	}
+	
 	// 수정
 	public void updateUser(String name, Long id) {
+		boolean check = checkNameByte(name);
+		if(check==false) {
+			return;
+		}
 		userRepository.updateUserInfoById(name, id);
 	}
+	
 	// 삭제
 	public void deleteUser(Long userId) {
 		userRepository.deleteById(userId);
 	}
+	
 	// 특정 사용자 조회
 	public List<User> findAllByNameContaining(String name){
 		return userRepository.findByNameContaining(name);
+	}
+	
+	// 입력값(이름) byte 체크
+	public boolean checkNameByte(String name) {
+		if(name.getBytes().length > 20) {
+			System.out.println("** 에 러 ** => 입력하신 이름이 20byte 초과하셨습니다");
+			return false;
+		}
+		return true;
 	}
 	
 }
